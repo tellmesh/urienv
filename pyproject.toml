@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "urienv"
+version = "0.1.0"
+description = "env:// URI capability pack."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [{ name = "urisys contributors" }, { name = "Tom Sapletta", email = "tom@sapletta.com" }]
+keywords = ["uri", "urisys", "urienv"]
+dependencies = ["uricontrol>=0.1.8"]
+
+[tool.uv.sources]
+
+[tool.setuptools]
+packages = ["urienv"]
+package-dir = { "urienv" = "." }
+
+
+[tool.setuptools.package-data]
+urienv = ["manifest.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

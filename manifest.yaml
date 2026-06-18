@@ -1,0 +1,62 @@
+id: urienv
+version: 1
+scheme: env
+description: Controlled env:// runtime configuration and secrets.
+
+uri_patterns:
+  - pattern: env://runtime/query/health
+    kind: query
+    operation: env.health
+    side_effects: false
+    approval: not_required
+  - pattern: env://runtime/query/list
+    kind: query
+    operation: env.list_vars
+    side_effects: false
+    approval: not_required
+  - pattern: env://runtime/config/query/startup
+    kind: query
+    operation: env.startup_config
+    side_effects: false
+    approval: not_required
+  - pattern: env://runtime/var/{name}/query/exists
+    kind: query
+    operation: env.var_exists
+    side_effects: false
+    approval: not_required
+  - pattern: env://runtime/var/{name}/query/value
+    kind: query
+    operation: env.var_value
+    side_effects: false
+    approval: not_required
+  - pattern: env://runtime/secret/{name}/query/masked
+    kind: query
+    operation: env.secret_masked
+    side_effects: false
+    approval: not_required
+  - pattern: env://runtime/secret/{name}/query/value
+    kind: query
+    operation: env.secret_value
+    side_effects: true
+    approval: required
+  - pattern: env://runtime/var/{name}/command/set
+    kind: command
+    operation: env.var_set
+    side_effects: true
+    approval: required
+  - pattern: env://runtime/var/{name}/command/unset
+    kind: command
+    operation: env.var_unset
+    side_effects: true
+    approval: required
+handlers:
+  python:
+    env.health: python://urienv.handlers:health
+    env.list_vars: python://urienv.handlers:list_vars
+    env.startup_config: python://urienv.handlers:startup_config
+    env.var_exists: python://urienv.handlers:var_exists
+    env.var_value: python://urienv.handlers:var_value
+    env.secret_masked: python://urienv.handlers:secret_masked
+    env.secret_value: python://urienv.handlers:secret_value
+    env.var_set: python://urienv.handlers:var_set
+    env.var_unset: python://urienv.handlers:var_unset
